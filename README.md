@@ -8,7 +8,7 @@
 
 <img width="963" alt="image" src="https://user-images.githubusercontent.com/52392004/177900062-3aac3867-5045-47b4-b39f-d4da23c71df3.png">
 
-이때의 IoT Core로 인입되는 데이터의 형태는 아래와 같습니다. 
+이때의 IoT Core로 인입되는 데이터의 Topic은 "$aws/rules/iotsitewise_conveyor1/conveyor1/telemetry"이고 데이터 형태는 아래와 같습니다.
 
 ```java
 {
