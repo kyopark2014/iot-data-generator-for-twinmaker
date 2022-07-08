@@ -1,4 +1,4 @@
-# TwinaMaker를 위한 IoT Data Generator 생성하기
+# TwinMaker를 위한 IoT Data Generator 생성하기
 
 여기서는 [IoT Data Generator를 이용하여 다양한 Data Source를 생성하고 Timestream과 Grafana를 이용하여 Dashboard 생성하기](https://github.com/kyopark2014/iot-data-generator)에서 TwinMaker를 위한 Data Source를 생성하기 위한 Sub Project입니다. 이것은 [TwinMaker와 SiteWise Connector를 연결하여 Asset Model](https://catalog.us-east-1.prod.workshops.aws/workshops/35e910c5-245f-41db-8284-73f0df0eb9ab/ko-KR/3/2)의 Data Souce를 Modeling 합니다.
 
