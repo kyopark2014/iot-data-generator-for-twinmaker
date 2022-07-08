@@ -6,7 +6,7 @@
 
 [IoT TwinMaker Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/35e910c5-245f-41db-8284-73f0df0eb9ab/ko-KR)에서 사용하는 Data Asset Model은 아래와 같습니다. 
 
-<img width="966" alt="image" src="https://user-images.githubusercontent.com/52392004/177897359-a294132a-7668-4033-8dcd-7198f1dbe525.png">
+<img width="963" alt="image" src="https://user-images.githubusercontent.com/52392004/177900062-3aac3867-5045-47b4-b39f-d4da23c71df3.png">
 
 이때의 IoT Core로 인입되는 데이터의 형태는 아래와 같습니다. 
 
