@@ -63,6 +63,7 @@ class Simulator:
             sign = random.choice([-1,1])
             delta = delta * sign
             shape = shapes.JITTER # The default unless a shape is specified in the config
+            
             if 'shape' in source.keys():
                 if source['shape'] == "TRIANGLE": shape = shapes.TRIANGLE
                 elif source['shape'] == "RAMPUP": shape = shapes.RAMPUP
@@ -70,7 +71,10 @@ class Simulator:
                 elif source['shape'] == "PWM25PC": shape = shapes.PWM25PC
                 elif source['shape'] == "PWM50PC": shape = shapes.PWM50PC
                 elif source['shape'] == "PWM75PC": shape = shapes.PWM75PC
+            
             new_value = self.dg.nextValueFrom(last_value, delta, shape, int(source['max']), int(source['min']))
+
+
             # new_value = last_value + delta
             # if new_value > int(source['max']):
             #     new_value = int(source['max'])
