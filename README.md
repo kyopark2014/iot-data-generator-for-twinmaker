@@ -28,7 +28,10 @@ Twinmaker에서 Conveyor를 로드한 화면
 
 <img width="550" alt="image" src="https://user-images.githubusercontent.com/52392004/178278678-4445b14a-cb70-4bc6-915a-b99303dde556.png">
 
-Grafana에서 
+Grafana에서 IoT data generator for twinmaker로 로딩한 모습은 아래와 같습니다. 
+
+![image](https://user-images.githubusercontent.com/52392004/178278964-16c17b82-f325-42dc-95ea-d3daa9345d8e.png)
+
 
 ## 인프라 삭제 
 
