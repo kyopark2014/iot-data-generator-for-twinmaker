@@ -58,7 +58,7 @@ Twinmaker에서 Conveyor를 로드한 화면은 아래와 같습니다.
 
 <img width="550" alt="image" src="https://user-images.githubusercontent.com/52392004/178278678-4445b14a-cb70-4bc6-915a-b99303dde556.png">
 
-Grafana에서 TwinMaker를 통해 로딩한 입력 신호의 모습은 아래와 같습니다. 
+Grafana에서 TwinMaker를 통해 로딩한 신호를 Dashboard에 아래처럼 보여줄 수 있습니다. 
 
 ![image](https://user-images.githubusercontent.com/52392004/178278964-16c17b82-f325-42dc-95ea-d3daa9345d8e.png)
 
