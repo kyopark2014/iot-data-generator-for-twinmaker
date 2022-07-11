@@ -42,7 +42,7 @@ $ python3 simulator-sitewise.py
 
 전체적인 인프라의 Architecture는 아래와 같습니다. 
 
-<img width="829" alt="image" src="https://user-images.githubusercontent.com/52392004/178289924-c8b45cf4-c549-4c6e-994a-edbe3e8d977f.png">
+<img width="908" alt="image" src="https://user-images.githubusercontent.com/52392004/178293935-4df28ed7-8d67-4ba3-9129-a391f7cf693f.png">
 
 여기서는 [AWS CDK](https://github.com/kyopark2014/technical-summary/blob/main/cdk-introduction.md)를 이용해 인프라를 생성합니다. [CDK로 인프라 생성](https://github.com/kyopark2014/iot-data-generator-for-twinmaker/tree/main/cdk-twinmaker)에서는 CDK V2.0을 기준으로 Typescript를 이용하여 인프라를 생성하는 과정을 상세하게 설명하고 있습니다.  
 
