@@ -5,10 +5,16 @@
 
 ## Workspace ID 정의
 
+Workspace ID는 이름도 되므로 아래와 같이 정의 합니다. 
+
 ```java
 const workspaceId = "MyWorkspace";
+```
+
 
 ## S3 생성 
+
+TwinMaker에서 사용하는 3D 도면등의 파일을 불러오기 위해 S3를 준비합니다. 
 
 ```java
     const s3Bucket = new s3.Bucket(this, "twinmaker",{
@@ -33,8 +39,9 @@ const workspaceId = "MyWorkspace";
 
 ## Twinmaker Role
 
-```c
-    // create role for twinmaker
+아래와 같이 IoT TwinMaker와 S3에 대한 권한을 가지는 Role을 생성합니다. 
+
+```java
     const twinmakerRole = new iam.Role(this, "twinmakeRole", {
       roleName: 'TwinmakerRole',
       assumedBy: new iam.ServicePrincipal("iottwinmaker.amazonaws.com"),
@@ -67,6 +74,8 @@ const workspaceId = "MyWorkspace";
 
 ## TwinMaker Workspace
 
+아래처럼 TwinMaker의 Workspace를 생성합니다. 
+
 ```java
     const cfnWorkspace = new iottwinmaker.CfnWorkspace(this, 'MyCfnWorkspace', {
       role: twinmakerRole.roleArn,  
@@ -77,6 +86,8 @@ const workspaceId = "MyWorkspace";
 ```
 
 ## SiteWise Asset Model
+
+SiteWise에서 사용할 Asset Model을 정의 합니다. 
 
 ```java
     const cfnAssetModel = new iotsitewise.CfnAssetModel(this, 'MyCfnAssetModel', {
@@ -166,6 +177,8 @@ const workspaceId = "MyWorkspace";
 
 ## Asset
 
+Assetd을 정의 합니다. 
+
 ```java
     const cfnAsset = new iotsitewise.CfnAsset(this, 'MyCfnAsset', {
       assetName: "Conveyor Machine 1",
@@ -212,6 +225,9 @@ const workspaceId = "MyWorkspace";
 
 ## role for IoT Rule
 
+IoT Core의 Rulte을 정의 합니다. 
+
+
 ```java
     const ruleRole = new iam.Role(this, "ruleRole", {
       roleName: 'IoTRuleRole-for-twinmaker',
@@ -243,6 +259,8 @@ const workspaceId = "MyWorkspace";
 ```
 
 ## IoT Rule 
+
+IoT Devicd에서 IoT Core로 전달된 'conveyor1/telemetry' Topic을 SiteWise로 전달하기 위한 Rule을 만듧니다. 
 
 ```java
     new iot.CfnTopicRule(this, "TopicRuleForIoTSiteWise", {
@@ -343,6 +361,8 @@ const workspaceId = "MyWorkspace";
 
 ## Entity와 Component 생성 
 
+TwinMaker에서 3D 화면을 만들기 위하여 Entity와 Component를 정의 합니다. 
+
 ```java
     // create Entity Factory
     const cfnEntityFactory = new iottwinmaker.CfnEntity(this, 'MyCfnEntityFactory', {
@@ -393,6 +413,8 @@ const workspaceId = "MyWorkspace";
 ```
 
 ## GIB 파일을 S3로 복사
+
+도면 파일을 S3로 저장합니다. 
 
 ```java
     new s3Deploy.BucketDeployment(this, "DeployWebApplication", {
