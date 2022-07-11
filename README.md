@@ -5,7 +5,7 @@
 따라서, [AWS TwinMaker](https://github.com/kyopark2014/aws-iot-twinmaker/blob/main/README.md)를 위하여 여기서 새로운 Data Generator를 생성하고자 합니다. 
 
 
-## TwinMaker의 Data Asset Model
+## TwinMaker의 Data Asset Model 
 
 [IoT TwinMaker Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/35e910c5-245f-41db-8284-73f0df0eb9ab/ko-KR)에서 사용하는 Data Asset Model은 아래와 같습니다. 
 
