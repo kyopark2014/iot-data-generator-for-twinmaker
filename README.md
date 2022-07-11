@@ -38,7 +38,19 @@ $ python3 simulator-sitewise.py
 
 ## 인프라 생성하기 
 
-여기서는 
+전체적인 인프라의 Architecture는 아래와 같습니다. 
+
+<img width="829" alt="image" src="https://user-images.githubusercontent.com/52392004/178289924-c8b45cf4-c549-4c6e-994a-edbe3e8d977f.png">
+
+여기서는 [AWS CDK](https://github.com/kyopark2014/technical-summary/blob/main/cdk-introduction.md)를 이용해 인프라를 생성합니다. 
+
+```c
+$ cd cdk-twinmaker
+$ cdk deploy
+```
+
+CDK로 
+
 
 ## 생성 결과
 
