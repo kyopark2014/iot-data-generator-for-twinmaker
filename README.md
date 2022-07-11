@@ -31,7 +31,7 @@
 
 ## Data Source 생성하기 
 
-[IoT Data Generator](https://github.com/kyopark2014/iot-data-generator-for-twinmaker/tree/main/data-generator)에서는 TwinMaker의 소스로 Multiple 파형을 가지는 IoT 소스를 구현하고 있습니다. 이대 Data Generator는 Python으로 구성되어 있으며, 아래와 같이 구동이 가능합니다. 
+[IoT Data Generator](https://github.com/kyopark2014/iot-data-generator-for-twinmaker/tree/main/data-generator)에서는 TwinMaker의 소스로 Multiple 파형을 가지는 IoT 소스를 구현하고 있습니다. 이때 Data Generator는 Python으로 구성되어 있으며, 아래와 같이 구동이 가능합니다. 
 
 ```c
 $ cd data-generator
