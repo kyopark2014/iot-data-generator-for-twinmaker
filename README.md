@@ -1,8 +1,13 @@
 # TwinMaker를 위한 IoT Data Generator 생성하기
 
-여기서는 [IoT Data Generator를 이용하여 다양한 Data Source를 생성하고 Timestream과 Grafana를 이용하여 Dashboard 생성하기](https://github.com/kyopark2014/iot-data-generator)에서 [AWS TwinMaker](https://github.com/kyopark2014/aws-iot-twinmaker/blob/main/README.md)를 위한 Data Source를 생성하기 위한 Sub Project입니다. 이것은 [TwinMaker와 SiteWise Connector를 연결하여 Asset Model](https://catalog.us-east-1.prod.workshops.aws/workshops/35e910c5-245f-41db-8284-73f0df0eb9ab/ko-KR/3/2)의 Data Souce를 Modeling 합니다.
+[IoT Data Generator를 이용하여 다양한 Data Source를 생성하고 Timestream과 Grafana를 이용하여 Dashboard 생성하기](https://github.com/kyopark2014/iot-data-generator)에서 생성한 IoT Data Generator는 1개의 Source에서 1개의 파형만을 생성하고 있습니다. 
 
-## Data Asset Model
+하지만, [TwinMaker와 SiteWise Connector를 연결하여 Asset Model](https://catalog.us-east-1.prod.workshops.aws/workshops/35e910c5-245f-41db-8284-73f0df0eb9ab/ko-KR/3/2)는 1개의 Source에서 여러개의 파형을 생성하여야 합니다.
+
+따라서, [AWS TwinMaker](https://github.com/kyopark2014/aws-iot-twinmaker/blob/main/README.md)를 위하여 여기서 새로운 Data Generator를 생성하고자 합니다. 
+
+
+## TwinMaker의 Data Asset Model
 
 [IoT TwinMaker Workshop](https://catalog.us-east-1.prod.workshops.aws/workshops/35e910c5-245f-41db-8284-73f0df0eb9ab/ko-KR)에서 사용하는 Data Asset Model은 아래와 같습니다. 
 
@@ -23,6 +28,17 @@
     "timeInSeconds":1657148190
 }
 ```            
+
+## Data Source 생성하기 
+
+```c
+$ cd data-generator
+$ python3 simulator-sitewise.py
+```
+$ python3 simulator-sitewise.py
+
+
+## 생성 결과
 
 Twinmaker에서 Conveyor를 로드한 화면 
 
