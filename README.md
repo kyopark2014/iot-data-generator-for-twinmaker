@@ -49,7 +49,7 @@ $ cd cdk-twinmaker
 $ cdk deploy
 ```
 
-CDK로 
+[CDK로 인프라 생성](https://github.com/kyopark2014/iot-data-generator-for-twinmaker/tree/main/cdk-twinmaker)에서는 CDK V2.0을 기준으로 Typescript를 이용하여 인프라를 생성하고 있습니다. 
 
 
 ## 생성 결과
