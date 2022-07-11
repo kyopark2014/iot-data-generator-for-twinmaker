@@ -56,7 +56,7 @@ $ cdk deploy
 
 ## 생성 결과
 
-Twinmaker에서 Conveyor를 로드한 화면 
+Twinmaker에서 Conveyor를 로드한 화면은 아래와 같습니다. 
 
 <img width="550" alt="image" src="https://user-images.githubusercontent.com/52392004/178278678-4445b14a-cb70-4bc6-915a-b99303dde556.png">
 
