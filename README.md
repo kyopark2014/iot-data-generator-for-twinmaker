@@ -38,7 +38,7 @@ $ python3 simulator-sitewise.py
 
 ## 인프라 생성하기 
 
-전체적인 인프라의 Architecture는 아래와 같습니다. 
+전체적인 인프라의 Architecture는 아래와 같습니다. IoT Data Generator는 여러개의 Waveform을 가지는 JSON 형태의 데이터를 IoT Core로 전송합니다. 여기서 Rule을 통해 특정 Topic을 IoT SiteWise로 전달합니다. 이때 Asset Model에 따라 정리된후 TwinMaker SiteWise Connect를 통해 TwinMaker에서 조회 할 수 있습니다. Grafana는 오픈 소스 시각화 도구로서 IoT TwinMaker의 데이터를 효과적으로 보여줍니다. 
 
 <img width="908" alt="image" src="https://user-images.githubusercontent.com/52392004/178293935-4df28ed7-8d67-4ba3-9129-a391f7cf693f.png">
 
