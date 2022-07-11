@@ -8,6 +8,7 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import * as iot from 'aws-cdk-lib/aws-iot';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as logs from 'aws-cdk-lib/aws-logs'
+import * as s3Deploy from "aws-cdk-lib/aws-s3-deployment"
 
 export class CdkTwinmakerStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -383,48 +384,22 @@ export class CdkTwinmakerStack extends Stack {
       }, 
     }); 
 
-    // lambda role
-    const s3UdqRole = new iam.Role(this, 's3UdqRole', {
-      assumedBy: new iam.ServicePrincipal('lambda.amazonaws.com'),
-    });
-    s3UdqRole.addManagedPolicy(iam.ManagedPolicy.fromManagedPolicyArn(this, "lambdaExecRole", "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"))
-    s3UdqRole.addManagedPolicy(iam.ManagedPolicy.fromAwsManagedPolicyName("AmazonS3ReadOnlyAccess"))
 
-    // create lambda function
-    const lambdaFunction = new lambda.Function(this, "MyFunction", {
-      description: 'lambda function fow s3 connector',
-      runtime: lambda.Runtime.PYTHON_3_8,
-      code: lambda.Code.fromAsset("../lambda_function"), 
-      handler: "udq_data_reader.lambda_handler",
-      
-      memorySize: 256,
-      role: s3UdqRole,
-      timeout: cdk.Duration.minutes(15),
-      logRetention: logs.RetentionDays.ONE_DAY,
-      environment: {},      
+    // copy glb files in S3
+    new s3Deploy.BucketDeployment(this, "DeployWebApplication", {
+      sources: [s3Deploy.Source.asset("../sample")],
+      destinationBucket: s3Bucket,
     });
-    new cdk.CfnOutput(this, 'LambdaARN', {
-      value: lambdaFunction.functionArn,
-      description: 'The arn of Lambda Function',
-    }); 
 
-    // define componentType
-    const cfnComponentType = new iottwinmaker.CfnComponentType(this, 'MyCfnComponentType', {
-      componentTypeId: 'com.example.s3.document',
+    // create scene
+    const cfnScene = new iottwinmaker.CfnScene(this, 'MyCfnScene', {
+      // contentLocation: 's3://'+s3Bucket.bucketName,
+      contentLocation: "mylocation",
+      sceneId: 'MyScene',
       workspaceId: workspaceId,
-    
-      description: 'ComponentType',
-      functions: {
-        functionsKey: {
-          implementedBy: {
-            isNative: false,
-            lambda: {
-              arn: lambdaFunction.functionArn,
-            },
-          },
-        },
-      },
-      isSingleton: false,
-    }); 
+      description: 'Scene',
+    });     
+
+
   }
 }
