@@ -71,9 +71,6 @@ Grafana에서 TwinMaker를 통해 로딩한 신호를 Dashboard에 아래처럼 
 $ cdk destroy --all
 ```
 
-그런데 entity가 삭제가 안되는 경우가 있다면 [AWS IoT TwinMaker](https://github.com/kyopark2014/aws-iot-twinmaker/blob/main/README.md)와 같이 AWS CLI를 이용하여 entity를 삭제후 workspace를 수동으로 삭제하여야 합니다. 
-
-
 ## Reference
 
 [Edge to Twin: A scalable edge to cloud architecture for digital twins](https://aws.amazon.com/ko/blogs/iot/edge-to-twin-a-scalable-edge-to-cloud-architecture-for-digital-twins/)
