@@ -6,8 +6,6 @@ import * as cdk from 'aws-cdk-lib';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as iot from 'aws-cdk-lib/aws-iot';
-import * as lambda from 'aws-cdk-lib/aws-lambda';
-import * as logs from 'aws-cdk-lib/aws-logs'
 import * as s3Deploy from "aws-cdk-lib/aws-s3-deployment"
 
 export class CdkTwinmakerStack extends Stack {
@@ -65,16 +63,8 @@ export class CdkTwinmakerStack extends Stack {
       description: 'The arn of twinmaker',
     });
     
-    // TwinMaker Workspace
-    const cfnWorkspace = new iottwinmaker.CfnWorkspace(this, 'MyCfnWorkspace', {
-      role: twinmakerRole.roleArn,  
-      s3Location: s3Bucket.bucketArn,    
-      workspaceId: workspaceId,
-      description: 'Workspace for TwinMaker'
-    }); 
-
     // SiteWise Asset Model
-    const cfnAssetModel = new iotsitewise.CfnAssetModel(this, 'MyCfnAssetModel', {
+    const assetModel = new iotsitewise.CfnAssetModel(this, 'MyCfnAssetModel', {
       assetModelName: 'Conveyor Machine',
       assetModelDescription: 'Asset Model Description for Conveyor Machine',
 
@@ -157,16 +147,14 @@ export class CdkTwinmakerStack extends Stack {
         }
       ],
     });
-
     new cdk.CfnOutput(this, 'AssetModelId', {
-      value: cfnAssetModel.attrAssetModelId,
+      value: assetModel.attrAssetModelId,
       description: 'The id of SiteWise Model',
     });
 
-    // Asset
-    const cfnAsset = new iotsitewise.CfnAsset(this, 'MyCfnAsset', {
+    const asset = new iotsitewise.CfnAsset(this, 'MyCfnAsset', {
       assetName: "Conveyor Machine 1",
-      assetModelId: cfnAssetModel.attrAssetModelId,
+      assetModelId: assetModel.attrAssetModelId,
       assetProperties: [
         {
           logicalId: 'logicalId-rVibration_Temp',
@@ -205,9 +193,8 @@ export class CdkTwinmakerStack extends Stack {
         },
       ]
     });
-
     new cdk.CfnOutput(this, 'AssetId', {
-      value: cfnAsset.attrAssetId,
+      value: asset.attrAssetId,
       description: 'The id of SiteWise Asset',
     });
 
@@ -223,7 +210,7 @@ export class CdkTwinmakerStack extends Stack {
         "iotsitewise:BatchPutAssetPropertyValue"
       ],
       resources: [
-        cfnAsset.attrAssetArn
+        asset.attrAssetArn
       ],
     }));
     ruleRole.addToPolicy(new iam.PolicyStatement({
@@ -334,33 +321,84 @@ export class CdkTwinmakerStack extends Stack {
         ],
         ruleDisabled: false,
       },      
-    });
+    }); 
 
+    // create Workspace
+    const workspace = new defineWorkspace(scope, "FactoryWorkspace", twinmakerRole, s3Bucket, workspaceId);
+
+    // create Entity Factory
+    const factory = new entityFactory(scope, "EntityFactory", workspaceId, 'entityIdFactoryabcd');    
+    factory.addDependency(workspace);
+
+    // create Entity Conveyors
+    const conveyors = new entityConveyors(scope, "EntityConveyors", workspaceId, 'entityIdConveyorsabcd', 'entityIdFactoryabcd');
+    conveyors.addDependency(factory);
     
+    // create Entity Conveyor1
+    const conveyor1 = new entityConveyor1(scope, "EntityConveyor1", workspaceId, 'entityIdConveyor1abcd', 'entityIdConveyorsabcd', assetModel, asset);
+    conveyor1.addDependency(conveyors); 
+
+    // copy glb files in S3
+    new s3Deploy.BucketDeployment(this, "DeployWebApplication", {
+      sources: [s3Deploy.Source.asset("../sample")],
+      destinationBucket: s3Bucket,
+    }); 
+
+    // create scene
+  /*  const cfnScene = new iottwinmaker.CfnScene(this, 'MyCfnScene', {  // To-Do define scene
+      // contentLocation: 's3://'+s3Bucket.bucketName,
+      contentLocation: "mylocation",
+      sceneId: 'MyScene',
+      workspaceId: workspaceId,
+      description: 'Scene',
+    });     */
+  }
+}
+
+export class entityFactory extends cdk.Stack {
+  constructor(scope: Construct, id: string, workspaceId: string, entityId: string, props?: StackProps) {    
+    super(scope, id, props);
+      
     // create Entity Factory
     const cfnEntityFactory = new iottwinmaker.CfnEntity(this, 'MyCfnEntityFactory', {
       entityName: 'Factory',
       workspaceId: workspaceId,
       description: 'Entity Factory', 
-      entityId: 'entityIdFactoryabcd', 
+      entityId: entityId, 
     }); 
-    
+
+    new cdk.CfnOutput(this, 'factoryArn', {
+      value: cfnEntityFactory.attrArn,
+      description: 'The arn of factory entity',
+    });  
+  }
+}
+
+export class entityConveyors extends cdk.Stack {
+  constructor(scope: Construct, id: string, workspaceId: string, entityId: string, parentEntityId: string, props?: StackProps) {
+    super(scope, id, props);
+
     // create Entity Conveyors
     const cfnEntityConveyors = new iottwinmaker.CfnEntity(this, 'MyCfnEntityConveyors', {
       entityName: 'Conveyors',
       workspaceId: workspaceId,
       description: 'Entity Conveyors',
-      entityId: 'entityIdConveyorsabcd',
-      parentEntityId: cfnEntityFactory.entityId,
+      entityId: entityId,
+      parentEntityId: parentEntityId,
     });  
-    
+  }
+}
+
+export class entityConveyor1 extends cdk.Stack {
+  constructor(scope: Construct, id: string, workspaceId: string, entityId: string, parentEntityId: string, assetModel: iotsitewise.CfnAssetModel, asset: iotsitewise.CfnAsset, props?: StackProps) {
+    super(scope, id, props);
     // create Entity Conveyor1
     const cfnEntityConveyor1 = new iottwinmaker.CfnEntity(this, 'MyCfnEntityConveyor1', {
       entityName: 'Conveyor1',
       workspaceId: workspaceId,
       description: 'Entity Conveyors1',
-      entityId: 'EntityIdConveyor1abcd',
-      parentEntityId: cfnEntityConveyors.entityId,
+      entityId: entityId,
+      parentEntityId: parentEntityId,
 
       // add component
       components: {
@@ -371,35 +409,31 @@ export class CdkTwinmakerStack extends Stack {
           properties: {
             "sitewiseAssetId": {
               value: {
-                stringValue: cfnAsset.attrAssetId,
+                stringValue: asset.attrAssetId,
               }, 
             }, 
             "sitewiseAssetModelId": {
               value: {
-                stringValue: cfnAssetModel.attrAssetModelId,
+                stringValue: assetModel.attrAssetModelId,
               }, 
             }, 
           }, 
         }, 
       }, 
     }); 
+  }
+}
 
+export class defineWorkspace extends cdk.Stack {
+  constructor(scope: Construct, id: string, twinmakerRole: cdk.aws_iam.Role, s3Bucket: cdk.aws_s3.Bucket, workspaceId: string, props?: StackProps) {
+    super(scope, id, props);
 
-    // copy glb files in S3
-    new s3Deploy.BucketDeployment(this, "DeployWebApplication", {
-      sources: [s3Deploy.Source.asset("../sample")],
-      destinationBucket: s3Bucket,
-    });
-
-    // create scene
-    const cfnScene = new iottwinmaker.CfnScene(this, 'MyCfnScene', {
-      // contentLocation: 's3://'+s3Bucket.bucketName,
-      contentLocation: "mylocation",
-      sceneId: 'MyScene',
+    // TwinMaker Workspace
+    const cfnWorkspace = new iottwinmaker.CfnWorkspace(this, 'MyCfnWorkspace', {
+      role: twinmakerRole.roleArn,  
+      s3Location: s3Bucket.bucketArn,    
       workspaceId: workspaceId,
-      description: 'Scene',
-    });     
-
-
+      description: 'Workspace for TwinMaker'
+    }); 
   }
 }
