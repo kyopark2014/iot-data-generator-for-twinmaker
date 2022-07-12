@@ -1,6 +1,6 @@
 # TwinMaker를 위한 IoT Data Generator 생성하기
 
-[IoT Data Generator를 이용하여 다양한 Data Source를 생성하고 Timestream과 Grafana를 이용하여 Dashboard 생성하기](https://github.com/kyopark2014/iot-data-generator)에서 생성한 IoT Data Generator는 1개의 Source에서 1개의 파형만을 생성하고 있습니다. 하지만, [TwinMaker와 SiteWise Connector를 연결하여 Asset Model](https://catalog.us-east-1.prod.workshops.aws/workshops/35e910c5-245f-41db-8284-73f0df0eb9ab/ko-KR/3/2)는 1개의 Source에서 여러개의 파형을 생성하여야 합니다.
+[IoT Data Generator를 이용하여 다양한 Data Source를 생성하고 Timestream과 Grafana를 이용하여 Dashboard 생성하기](https://github.com/kyopark2014/iot-data-generator)에서 생성한 IoT Data Generator는 1개의 Source에서 1개의 파형만을 생성하고 있습니다. 하지만, [TwinMaker와 SiteWise Connector를 연결하여 생성한 Asset Model](https://catalog.us-east-1.prod.workshops.aws/workshops/35e910c5-245f-41db-8284-73f0df0eb9ab/ko-KR/3/2)은 1개의 Entity에서 여러개의 파형을 생성하여야 합니다.
 
 따라서, [AWS TwinMaker](https://github.com/kyopark2014/aws-iot-twinmaker/blob/main/README.md)를 위하여 여기서 새로운 Data Generator를 생성하고자 합니다. 
 
