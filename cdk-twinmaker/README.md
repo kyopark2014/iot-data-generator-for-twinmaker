@@ -223,9 +223,9 @@ Assetd을 정의 합니다.
     });
 ```
 
-## role for IoT Rule
+## IoT Rule를 위한 Role 
 
-IoT Core의 Rulte을 정의 합니다. 
+IoT Core의 Rule을 위한 Role을 아래와 같이 정의 합니다. 
 
 
 ```java
@@ -260,7 +260,7 @@ IoT Core의 Rulte을 정의 합니다.
 
 ## IoT Rule 
 
-IoT Devicd에서 IoT Core로 전달된 'conveyor1/telemetry' Topic을 SiteWise로 전달하기 위한 Rule을 만듧니다. 
+IoT Device에서 IoT Core로 전달된 'conveyor1/telemetry' Topic을 SiteWise로 전달하기 위한 Rule을 만듧니다. 
 
 ```java
     new iot.CfnTopicRule(this, "TopicRuleForIoTSiteWise", {
