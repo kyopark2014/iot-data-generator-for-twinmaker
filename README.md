@@ -46,7 +46,7 @@ $ python3 simulator-sitewise.py
 
 ```c
 $ cd cdk-twinmaker
-$ cdk deploy
+$ cdk deploy --all
 ```
 
 
@@ -68,7 +68,7 @@ Grafana에서 TwinMaker를 통해 로딩한 신호를 Dashboard에 아래처럼 
 인프라를 삭제할 경우에는 아래와 같이 삭제할 수 있습니다. 
 
 ```c
-$ cdk destroy
+$ cdk destroy --all
 ```
 
 그런데 entity가 삭제가 안되는 경우가 있다면 [AWS IoT TwinMaker](https://github.com/kyopark2014/aws-iot-twinmaker/blob/main/README.md)와 같이 AWS CLI를 이용하여 entity를 삭제후 workspace를 수동으로 삭제하여야 합니다. 
