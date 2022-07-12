@@ -1,6 +1,6 @@
 # AWS CDK로 인프라 생성하기 
 
-[CDK 인프라](https://github.com/kyopark2014/iot-data-generator-for-twinmaker/blob/main/cdk-twinmaker/lib/cdk-twinmaker-stack.ts)관련하여 상세 모듈에 대해 아래와 같이 설명합니다. 
+[CDK 인프라](https://github.com/kyopark2014/iot-data-generator-for-twinmaker/blob/main/cdk-twinmaker/lib/cdk-twinmaker-stack.ts) 관련하여 상세 모듈에 대해 아래와 같이 설명합니다. 
 
 
 ## Workspace ID 정의
